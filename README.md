@@ -1,29 +1,67 @@
-Компоненты
+Страница интернет-магазина
 ===
 
-Необходимо выполнить и предоставить на проверку следующие задачи:
+Необходимо создать React-компонент `ShopItemFunc` (функциональный компонент), с помощью которого мы могли бы реализовывать представление информации о товарах из нашего каталога на сайте в таком виде (компонент обведён пунктирной линией):
+![Внешний вид страницы после реализации компонента](./res/preview.png)
 
-1. [Страница интернет-магазина (функциональный компонент)](store-func).
-1. [Страница интернет-магазина (class-based компонент)](store-class).
-1. [Календарь](calendar) — необязательная задача со звёздочкой.
+## Пример использования
+```jsx
+const item = {
+  brand: 'Tiger of Sweden',
+  title: 'Leonard coat',
+  description: 'Minimalistic coat in cotton-blend',
+  descriptionFull: 'Men\'s minimalistic overcoat in cotton-blend. Features a stand-up collar, concealed front closure and single back vent. Slim fit with clean, straight shape. Above-knee length.',
+  price: 399,
+  currency: '£'
+}
 
-Любые вопросы по решению задач задавайте в группе в Discord.
+// Внутри компонента App
+return (
+  <div className="container">
+    <div className="background-element">
+    </div>
+    <div className="highlight-window">
+      <div className='highlight-overlay'></div>
+    </div>
+    <div className="window">
+      <ShopItemFunc item={item} />
+    </div>
+  </div>
+)
+```
 
-Все три задачи лучше сдавать в разных репозиториях, то есть через create-react-app реализовать три проекта, чтобы не
-было конфликта стилей. Но если вы позаботитесь о том, что конфликта не будет, то можете сдавать и в одном проекте.
+## Описание компонента
 
-Все стили необходимо размещать в файле App.css.
+Компонент должен иметь один props `item`, в котором он ожидает объект с информацией о товаре со следующими свойствами:
+- `brand` — название производителя товара;
+- `title` — название товара;
+- `description` — краткое описание товара;
+- `descriptionFull` — подробное описание товара;
+- `price` — цена товара;
+- `currency` — валюта товара.
 
-#### Альтернативный способ создания приложения React с использованием тулинга Vite
+Компонент должен создавать DOM элемент следующей структуры:
+```html
+<div class="main-content">
+  <h2>Tiger of Sweden</h2>
+  <h1>Leonard coat</h1>
+  <h3>Minimalistic coat in cotton-blend</h3>
+  <div class="description">
+    Men's minimalistic overcoat in cotton-blend. Features a stand-up collar, concealed front closure and single back vent. Slim fit with clean, straight shape. Above-knee length.
+  </div>
+  <div class="highlight-window mobile"><div class="highlight-overlay"></div></div>
+  <div class="divider"></div>
+  <div class="purchase-info">
+    <div class="price">£399.00</div>
+    <button>Добавить в корзину</button>
+  </div>
+</div>
+```
 
-Приложение также можно создать используя инструмент Vite.
-Документация по созданию приложения [React](https://vitejs.dev/guide/).
+Соответственно название производителя необходимо подставить в `h2`, название товара в `h1`, краткое описание в `h3`, подробное описание в `div.description`, цену и валюту в `div.price`. При этом символ валюты должен следовать перед ценой, а цена должна быть представлена с двумя числами после запятой.
 
-1. Откройте терминал и пропишите следующую команду: `yarn create vite my-app --template react`,
-   либо `yarn create vite my-app --template react-ts`, если
-   нужен шаблон с TypeScript. Эта команда создаст настроенный
-   шаблонный проект.
-2. Откройте созданный проект в своей IDE.
-3. Установите зависимости.
-4. Готово. Чтобы запустить приложение, введите команду: `yarn dev`(либо `npm run dev`).
-  
+## Реализация
+
+Реализуйте полноценный проект с помощью create-react-app. Для item можете использовать либо тип `object`, либо вынести item в класс и использовать `instanceOf`.
+
+Используйте расположенный в этом каталоге CSS для стилизации.
